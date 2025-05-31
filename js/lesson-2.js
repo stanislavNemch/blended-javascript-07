@@ -268,6 +268,167 @@ function calcTotalPrice(fruits, fruitName) {
 }
 
 // Приклад використання функції calcTotalPrice
-console.log(
-    "Завдання 10: total price of Banana = " + calcTotalPrice(fruits, "Банан")
-); // 1375
+//console.log(
+//    "Завдання 10: total price of Banana = " + calcTotalPrice(fruits, "Банан")
+//); // 1375
+
+//Завдання із зірочкою:
+// Створіть телефонну книгу - об'єкт phonebook,
+// у якого є властивість contacts (список контактів)
+// та методи управління книгою:
+// add(data) - приймає об'єкт data, де передається
+// name і email, category може передаватись чи ні,
+// всередині метода add створіть обʼєкт newContact з властивостями name, email, category, id, createdAt
+// (name i email - обов'язкові параметри, які треба передавати
+// при додаванні нового контакта,
+// category - може передаватись чи ні, якщо ні - має
+// приймати значення "default",
+// id та createdAt генеруються відповідними методами:
+// generateId() і getDate());
+// і додає newContact до списку контактів contacts;
+// *не забудьте додати перевірку, якщо контакт з таким ім'ям чи імейлом вже є - ми його не додаємо
+// list() - виводить список контактів у вигляді таблиці;
+// filtered(category) - фільтрує контактів по обраній категорії (друзі, робота і т.д.);
+// delete(name) - видаляє контакт з заданим ім'ям;
+// updateName(oldName, newName) - змінює ім'я контакта;
+
+const phonebook = {
+    contacts: [],
+
+    generateId() {
+        return Math.floor(Math.random() * 100); // Генеруємо випадковий ID від 0 до 99
+    },
+    getDate() {
+        const date = new Date(); // Отримуємо поточну дату і час
+        // Повертаємо дату у форматі ISO
+        // (наприклад, "2023-10-01T12:34:56.789Z")
+        return date.toISOString();
+    },
+    add(data) {
+        // Перевіряємо, чи передані обов'язкові поля
+        if (!data.name || !data.email) {
+            console.error("Name and email are required fields.");
+            return;
+        }
+        // Перевіряємо, чи контакт з таким ім'ям або email вже існує
+        const existingContact = this.contacts.find(
+            (contact) =>
+                contact.name === data.name || contact.email === data.email
+        );
+        // Якщо контакт з таким ім'ям або email вже існує, виводимо помилку
+        if (existingContact) {
+            console.error(
+                "Contact with the same name or email already exists."
+            );
+            return;
+        }
+        // Створюємо новий контакт
+        const newContact = {
+            id: this.generateId(),
+            name: data.name,
+            email: data.email,
+            category: data.category || "default",
+            createdAt: this.getDate(),
+        };
+
+        this.contacts.push(newContact);
+    },
+    // Метод для виведення списку контактів
+    list() {
+        if (this.contacts.length === 0) {
+            console.log("No contacts available.");
+            return;
+        }
+        // Виводимо список контактів у вигляді таблиці
+        console.table(this.contacts);
+    },
+    // Метод для фільтрації контактів за категорією
+    filtered(category) {
+        const filteredContacts = this.contacts.filter(
+            (contact) => contact.category === category
+        );
+
+        if (filteredContacts.length === 0) {
+            console.log(`No contacts found in category: ${category}`);
+            return;
+        }
+
+        console.table(filteredContacts);
+    },
+    // Метод для видалення контакту за ім'ям
+    delete(name) {
+        const index = this.contacts.findIndex(
+            (contact) => contact.name === name
+        );
+        // Якщо контакт з таким ім'ям не знайдено, виводимо помилку
+        if (index === -1) {
+            console.error(`Contact with name "${name}" not found.`);
+            return;
+        }
+        // Видаляємо контакт з масиву за індексом
+        this.contacts.splice(index, 1);
+        console.log(`Contact "${name}" has been deleted.`);
+    },
+    // Метод для оновлення імені контакту
+    updateName(oldName, newName) {
+        const contact = this.contacts.find(
+            (contact) => contact.name === oldName
+        );
+        // Якщо контакт з таким ім'ям не знайдено, виводимо помилку
+        if (!contact) {
+            console.error(`Contact with name "${oldName}" not found.`);
+            return;
+        }
+        // Перевіряємо, чи нове ім'я вже існує в списку контактів
+        if (this.contacts.some((c) => c.name === newName)) {
+            console.error(`Contact with name "${newName}" already exists.`);
+            return;
+        }
+
+        contact.name = newName;
+        console.log(`Contact name updated from "${oldName}" to "${newName}".`);
+    },
+};
+
+// Приклади використання:
+console.log("--- Додавання контактів ---");
+phonebook.add({ name: "Олена", email: "olena@example.com", category: "Друзі" });
+phonebook.add({ name: "Іван", email: "ivan@example.com", category: "Робота" });
+phonebook.add({ name: "Марія", email: "maria@example.com" }); // Категорія за замовчуванням
+phonebook.add({
+    name: "Олена",
+    email: "olena2@example.com",
+    category: "Сім'я",
+}); // Дублікат ім'я
+phonebook.add({ name: "Петро", email: "ivan@example.com", category: "Колеги" }); // Дублікат email
+phonebook.add({
+    name: "Андрій",
+    email: "andriy@example.com",
+    category: "Друзі",
+}); // Додавання нового контакту
+
+console.log("\n--- Список усіх контактів ---");
+phonebook.list();
+
+console.log("\n--- Фільтрація за категорією 'Друзі' ---");
+phonebook.filtered("Друзі");
+
+console.log("\n--- Фільтрація за категорією 'Сім'я' (не знайдено) ---");
+phonebook.filtered("Сім'я");
+
+console.log("\n--- Оновлення імені контакту 'Іван' на 'Іван Сидоренко' ---");
+phonebook.updateName("Іван", "Іван Сидоренко");
+phonebook.list();
+
+console.log("\n--- Спроба оновити ім'я на вже існуюче ---");
+phonebook.updateName("Марія", "Олена");
+
+console.log("\n--- Видалення контакту 'Марія' ---");
+phonebook.delete("Марія");
+phonebook.list();
+
+console.log("\n--- Спроба видалити неіснуючий контакт ---");
+phonebook.delete("Неіснуючий Контакт");
+
+console.log("\n--- Фінальний список контактів ---");
+phonebook.list();
