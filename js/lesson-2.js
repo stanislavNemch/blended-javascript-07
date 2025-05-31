@@ -94,7 +94,7 @@ function sumAdjacentNumbers(arr) {
     return result;
 }
 
-console.log("Завдання 4: [" + sumAdjacentNumbers(someArr) + "]"); // [33, 45, 39, 17, 25, 27, 29]
+// console.log("Завдання 4: [" + sumAdjacentNumbers(someArr) + "]"); // [33, 45, 39, 17, 25, 27, 29]
 
 // Завдання 5:
 // Напишіть функцію findSmallestNumber(numbers),
@@ -123,7 +123,7 @@ function findSmallestNumber(numbers) {
     return smallest;
 }
 
-console.log("Завдання 5: [" + findSmallestNumber(numbers) + "]"); // 2
+//console.log("Завдання 5: [" + findSmallestNumber(numbers) + "]"); // 2
 
 //Завдання 6:
 // Напишіть функцію findLongestWord(string), яка
@@ -149,11 +149,11 @@ function findLongestWord(string) {
     return longestWord;
 }
 
-console.log(
-    "Завдання 6: [" +
-        findLongestWord("London is the capital of Great Britain") +
-        "]"
-); // 'capital'
+//console.log(
+//    "Завдання 6: [" +
+//        findLongestWord("London is the capital of Great Britain") +
+//        "]"
+//); // 'capital'
 
 // Завдання 7:
 // Напишіть скрипт, який для об'єкту user, послідовно:
@@ -174,8 +174,65 @@ user.mood = "happy";
 user.hobby = "skydiving";
 user.premium = false;
 
-console.log("Завдання 7: user = { ");
+//console.log("Завдання 7: user = { ");
 for (const key of Object.keys(user)) {
-    console.log(`     ${key}: ${user[key]}`);
+    //console.log(`     ${key}: ${user[key]}`);
 }
-console.log(" }");
+//console.log(" }");
+
+// Завдання 8:
+// Є об'єкт, в якому зберігаються зарплати команди
+// Напишіть код для додавання усіх зарплат та
+// збережіть його результат в змінній sum.
+// Якщо об'єкт salaries пустий, то результат має бути 0
+
+const salaries = {
+    Mango: 100,
+    Poly: 160,
+    Ajax: 1470,
+};
+
+let sum = 0;
+for (const salary of Object.values(salaries)) {
+    sum += salary;
+}
+
+//console.log("Завдання 8: sum = " + sum); // 1730
+
+// Завдання 9:
+// Створіть об'єкт calculator з наступними методами:
+// read(a, b) - приймає два аргумента і зберігає їх як властивості об'єкта,
+// sum() - повертає сумму збереженних значень (з перевіркою на наявність властивостей в об'єкті),
+// mult() - перемножає збереженні значення і повертає результат (з перевіркою на наявність властивостей в об'єкті),
+// винесіть перевірку на наявність властивостей в об'єкті в окремий метод exist().
+
+// Якщо вказані властивості в обʼєкті відсутні (тобто метод exist повертає false),
+// методи sum і mult мають повертати рядок 'No such propeties'
+
+const calculator = {
+    read(a, b) {
+        this.a = a;
+        this.b = b;
+    },
+    exist() {
+        return this.a !== undefined && this.b !== undefined;
+    },
+    sum() {
+        if (this.exist()) {
+            return this.a + this.b;
+        }
+        return "No such properties";
+    },
+    mult() {
+        if (this.exist()) {
+            return this.a * this.b;
+        }
+        return "No such properties";
+    },
+};
+
+calculator.read(5, 10);
+console.log("Завдання 9: sum = " + calculator.sum()); // 15
+console.log("Завдання 9: mult = " + calculator.mult()); // 50
+calculator.read(5);
+console.log("Завдання 9: sum = " + calculator.sum()); // No such properties
