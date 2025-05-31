@@ -232,7 +232,42 @@ const calculator = {
 };
 
 calculator.read(5, 10);
-console.log("Завдання 9: sum = " + calculator.sum()); // 15
-console.log("Завдання 9: mult = " + calculator.mult()); // 50
+//console.log("Завдання 9: sum = " + calculator.sum()); // 15
+//console.log("Завдання 9: mult = " + calculator.mult()); // 50
 calculator.read(5);
-console.log("Завдання 9: sum = " + calculator.sum()); // No such properties
+//console.log("Завдання 9: sum = " + calculator.sum()); // No such properties
+
+//Завдання 10:
+// Напишіть функцію calcTotalPrice(fruits, fruitName),
+// яка приймає массив об'єктів (fruits) і рядок з назвою фрукта (fruitName).
+// Функція рахує і повертає загальну вартість фрукта
+// з таким ім'ям, ціною та кількістю з об'єкта.
+
+// Зверніть увагу, що в масиві може бути кілька обʼєктів з однаковою
+// назвою фрукта, це також треба урахувати.
+
+const fruits = [
+    { name: "Яблуко", price: 45, quantity: 7 },
+    { name: "Апельсин", price: 60, quantity: 4 },
+    { name: "Банан", price: 125, quantity: 8 },
+    { name: "Груша", price: 350, quantity: 2 },
+    { name: "Виноград", price: 440, quantity: 3 },
+    { name: "Банан", price: 125, quantity: 3 },
+];
+
+function calcTotalPrice(fruits, fruitName) {
+    let totalPrice = 0;
+
+    for (const fruit of fruits) {
+        if (fruit.name === fruitName) {
+            totalPrice += fruit.price * fruit.quantity;
+        }
+    }
+
+    return totalPrice;
+}
+
+// Приклад використання функції calcTotalPrice
+console.log(
+    "Завдання 10: total price of Banana = " + calcTotalPrice(fruits, "Банан")
+); // 1375
