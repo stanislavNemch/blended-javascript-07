@@ -292,6 +292,136 @@ function calcTotalPrice(fruits, fruitName) {
 // delete(name) - видаляє контакт з заданим ім'ям;
 // updateName(oldName, newName) - змінює ім'я контакта;
 
+const phonebookSimple = {
+    contacts: [],
+
+    generateId() {
+        return Math.floor(Math.random() * 100); // Генерируем случайный ID от 0 до 99
+    },
+
+    getDate() {
+        const date = new Date(); // Получаем текущую дату и время
+        return date.toISOString(); // Возвращаем дату в формате ISO
+    },
+
+    add(data) {
+        // Проверяем, переданы ли обязательные поля
+        if (!data.name || !data.email) {
+            console.error("Name and email are required fields.");
+            return;
+        }
+
+        // Проверяем, существует ли контакт с таким именем или email
+        let existingContact = null;
+        for (const contact of this.contacts) {
+            if (contact.name === data.name || contact.email === data.email) {
+                existingContact = contact;
+                break; // Нашли совпадение, выходим из цикла
+            }
+        }
+
+        // Если контакт с таким именем или email уже существует, выводим ошибку
+        if (existingContact) {
+            console.error(
+                "Contact with the same name or email already exists."
+            );
+            return;
+        }
+
+        // Создаем новый контакт
+        const newContact = {
+            id: this.generateId(),
+            name: data.name,
+            email: data.email,
+            category: data.category || "default",
+            createdAt: this.getDate(),
+        };
+
+        this.contacts.push(newContact);
+        console.log(`Contact "${newContact.name}" added successfully.`);
+    },
+
+    list() {
+        if (this.contacts.length === 0) {
+            console.log("No contacts available.");
+            return;
+        }
+        // Выводим список контактов в виде таблицы
+        console.table(this.contacts);
+    },
+
+    filtered(category) {
+        const filteredContacts = [];
+        for (const contact of this.contacts) {
+            if (contact.category === category) {
+                filteredContacts.push(contact);
+            }
+        }
+
+        if (filteredContacts.length === 0) {
+            console.log(`No contacts found in category: ${category}`);
+            return;
+        }
+
+        console.table(filteredContacts);
+    },
+
+    delete(name) {
+        let indexToDelete = -1;
+        for (let i = 0; i < this.contacts.length; i++) {
+            if (this.contacts[i].name === name) {
+                indexToDelete = i;
+                break; // Нашли контакт, выходим из цикла
+            }
+        }
+
+        // Если контакт с таким именем не найден, выводим ошибку
+        if (indexToDelete === -1) {
+            console.error(`Contact with name "${name}" not found.`);
+            return;
+        }
+
+        // Удаляем контакт из массива по индексу
+        this.contacts.splice(indexToDelete, 1);
+        console.log(`Contact "${name}" has been deleted.`);
+    },
+
+    updateName(oldName, newName) {
+        let foundContact = null;
+        for (const contact of this.contacts) {
+            if (contact.name === oldName) {
+                foundContact = contact;
+                break;
+            }
+        }
+
+        // Если контакт с таким именем не найден, выводим ошибку
+        if (!foundContact) {
+            console.error(`Contact with name "${oldName}" not found.`);
+            return;
+        }
+
+        // Проверяем, существует ли новое имя уже в списке контактов
+        let newNameExists = false;
+        for (const contact of this.contacts) {
+            if (contact.name === newName) {
+                newNameExists = true;
+                break;
+            }
+        }
+
+        if (newNameExists) {
+            console.error(`Contact with name "${newName}" already exists.`);
+            return;
+        }
+
+        foundContact.name = newName;
+        console.log(`Contact name updated from "${oldName}" to "${newName}".`);
+    },
+};
+
+//-----------------------------------------------------------------------------//
+
 const phonebook = {
     contacts: [],
 
@@ -380,7 +510,7 @@ const phonebook = {
             return;
         }
         // Перевіряємо, чи нове ім'я вже існує в списку контактів
-        if (this.contacts.some((c) => c.name === newName)) {
+        if (this.contacts.some((contact) => contact.name === newName)) {
             console.error(`Contact with name "${newName}" already exists.`);
             return;
         }
