@@ -78,3 +78,31 @@ console.log(sortedNumbers); // [1, 2, 3, 4, 5]
 console.log("-----------------------------------------------------------");
 
 // Завдання 7:
+// Відсортуйте масив рядків ["banana", "orange", "apple", "pear"]
+//  у порядку алфавіту.
+// Очікуваний результат: ["apple", "banana", "orange", "pear"].
+
+const stringArray = ["banana", "orange", "apple", "pear"];
+const sortedArray = stringArray.toSorted();
+console.log("Завдання 7");
+console.log("Sorted string Array:");
+console.log(sortedArray);
+console.log("-----------------------------------------------------------");
+
+// Завдання 8:
+//  Відсортуйте масив об'єктів за віком у порядку зростання.
+// Очікуваний результат: [{name: "Bob", age: 19}, {name: "John", age: 27}, {name: "Jane", age: 31}].
+
+const users = [
+    { name: "John", age: 27 },
+    { name: "Jane", age: 31 },
+    { name: "Bob", age: 19 },
+];
+
+const sortedUsers = users.sort((a, b) => a.age - b.age);
+console.log("Завдання 8");
+console.log("Sorted users:");
+console.log(sortedUsers);
+console.log("-----------------------------------------------------------");
+
+// Завдання 9:
