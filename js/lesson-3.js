@@ -10,6 +10,10 @@ console.log("Завдання 1");
 console.log("Squares of numbers:");
 console.log(squares); // [1, 4, 9, 16, 25]
 console.log("-----------------------------------------------------------");
+const doubleArr = [];
+numbers.forEach((num) => doubleArr.push(num ** 2));
+console.log(doubleArr);
+console.log("-----------------------------------------------------------");
 
 // Завдання 2:
 // Дано масив об'єктів. Створіть новий масив, що містить всі значення
