@@ -99,3 +99,42 @@ newListItem2.insertAdjacentHTML(
 list.appendChild(newListItem2);
 // Очищення списку
 //list.innerHTML = "";
+
+// --------------------------------- Завдання 2 ---------------------------------
+// Створіть контейнер div (з класом number-container) в HTML-документі
+// та динамічно створіть 100 блоків (з класом number) наповнивши їх рандомними
+// числами від 1 до 100 і додайте їх до контейнера div(numberContainer).
+// Парні числа повинні мати зелений фон (додати клас even),
+// Непарні числа - жовтий фон (додати клас odd).
+
+// const randomNumber = () => Math.floor(Math.random() * 100) + 1;
+
+// Функція для генерації випадкового числа від 1 до 100
+const randomNumber = () => Math.floor(Math.random() * 100) + 1;
+
+// Створення контейнера div з класом number-container
+const numberContainer = document.createElement("div");
+numberContainer.classList.add("number-container");
+// Додавання контейнера до документу
+document.body.appendChild(numberContainer);
+// Створення заголовка для нового списку
+const addHeader = document.createElement("h3");
+// Встановлення тексту заголовку
+addHeader.textContent = "Завдання 2: Динамічне створення блоків з числами";
+// Додавання заголовку до контейнера
+numberContainer.parentNode.insertBefore(addHeader, numberContainer);
+
+// Створення 100 блоків div з класом number
+for (let i = 0; i < 100; i++) {
+    const number = document.createElement("div");
+    number.classList.add("number");
+    number.textContent = randomNumber();
+    // Додавання класу even або odd в залежності від парності числа
+    if (number.textContent % 2 === 0) {
+        number.classList.add("even");
+    } else {
+        number.classList.add("odd");
+    }
+    // Додавання блоку до контейнера
+    numberContainer.appendChild(number);
+}

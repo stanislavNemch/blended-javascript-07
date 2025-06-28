@@ -59,8 +59,13 @@ ul {
     align-items: center;
     font-size: 18px;
     font-weight: 700;
-
     margin: 5px;
+}
+
+.number:hover {
+    transform: scale(1.2);
+    transition: transform 0.2s;
+    cursor: pointer;
 }
 
 .even {
