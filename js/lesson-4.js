@@ -222,3 +222,21 @@ form.addEventListener("submit", (event) => {
 
 // Додавання початкового тексту в span
 span.textContent = "Anonymous";
+
+// -------------------------- Завдання 4 --------------------------
+// Використовуй шаблон розмітки з файлу html та напиши наступний функціонал:
+// При кліку на кнопку "Зменшити" квадрат стає меньшим на 20 пікселів,
+// При кліку на кнопку "Збільшити" - квадрат стає більшим на 20 пікселів.
+
+const box = document.querySelector(".box");
+const decreaseButton = document.querySelector("#decrease");
+const increaseButton = document.querySelector("#increase");
+
+decreaseButton.addEventListener("click", () => {
+    box.style.width = `${box.offsetWidth - 20}px`;
+    box.style.height = `${box.offsetHeight - 20}px`;
+});
+increaseButton.addEventListener("click", () => {
+    box.style.width = `${box.offsetWidth + 20}px`;
+    box.style.height = `${box.offsetHeight + 20}px`;
+});
