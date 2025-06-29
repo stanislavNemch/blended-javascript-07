@@ -186,19 +186,23 @@ input.addEventListener("input", () => {
 });
 
 form.addEventListener("focus", () => {
-    if (input.value === "") {
-        input.style.outline = "3px solid red";
-    } else {
-        input.style.outline = "3px solid green";
-    }
+    input.style.outline =
+        input.value === "" ? "3px solid red" : "3px solid green";
+    // if (input.value === "") {
+    //     input.style.outline = "3px solid red";
+    // } else {
+    //     input.style.outline = "3px solid green";
+    // }
 });
 
 form.addEventListener("blur", () => {
-    if (input.value === "") {
-        input.style.outline = "3px solid red";
-    } else {
-        input.style.outline = "3px solid lime";
-    }
+    input.style.outline =
+        input.value === "" ? "3px solid red" : "3px solid lime";
+    // if (input.value === "") {
+    //     input.style.outline = "3px solid red";
+    // } else {
+    //     input.style.outline = "3px solid lime";
+    // }
 });
 
 form.addEventListener("submit", (event) => {
@@ -207,6 +211,7 @@ form.addEventListener("submit", (event) => {
     const isChecked = checkbox.checked;
     if (userName === "" || !isChecked) {
         alert("Будь ласка, заповніть ім'я та увімкніть чекбокс.");
+        return;
     } else {
         const userData = { userName };
         console.log(userData);
